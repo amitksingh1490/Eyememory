@@ -1,0 +1,23 @@
+.Game {
+}
+
+.Card {
+  float: left;
+  width: 11rem;
+  height: 6rem;
+  padding: 1rem;
+  margin: 1rem;
+  border: 1px solid black;
+  text-align: center;
+  background-color: black;
+
+  // .Card--flipped
+  &--flipped {
+    background-color: gray;
+  }
+
+  // .Card--matched
+  &--matched {
+    background-color: green;
+  }
+}
