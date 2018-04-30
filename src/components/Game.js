@@ -97,7 +97,7 @@ export default class Game extends Component {
 
   render() {
     var btnText = 'Reset';
-    if (this.state.matches === this.state.cards.length / 2) {
+    if (this.state.matches === this.state.cards.length / 2  && this.state.matches!== 0) {
       btnText = 'You Win! Play Again?';
     }
     return (
