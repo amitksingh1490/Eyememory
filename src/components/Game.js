@@ -15,7 +15,9 @@ export default class Game extends Component {
       cards: [],
       lastCard: null,
       locked: false,
-      matches: 0
+      player1matches: 0,
+      player2matches: 0,
+      turn: 0
     };
   }
 
@@ -46,12 +48,17 @@ export default class Game extends Component {
         var matches = this.state.matches;
         cards[id].matched = true;
         cards[this.state.lastCard.id].matched = true;
-        this.setState({cards, lastCard: null, locked: false, matches: matches + 1});
+        if(this.state.turn == 0){
+            this.setState({cards, lastCard: null, locked: false, player1matches: this.state.player1matches + 1});
+        } else {
+            this.setState({cards, lastCard: null, locked: false, player2matches: this.state.player2matches + 1});
+        }
+
       } else {
         setTimeout(() => {
           cards[id].flipped = false;
           cards[this.state.lastCard.id].flipped = false;
-          this.setState({cards, lastCard: null, locked: false});
+          this.setState({cards, lastCard: null, locked: false, turn: !this.state.turn});
         }, 1000);
       }
     } else {
@@ -97,15 +104,29 @@ export default class Game extends Component {
 
   render() {
     var btnText = 'Reset';
-    if (this.state.matches === this.state.cards.length / 2  && this.state.matches!== 0) {
-      btnText = 'You Win! Play Again?';
+    let matches = this.state.player1matches + this.state.player2matches
+    if (matches === this.state.cards.length / 2  && matches!== 0) {
+      if(this.state.player1matches === this.state.player2matches) {
+          btnText = "It is a Tie! Play Again?"
+      } else {
+          btnText =  (this.state.player1matches > this.state.player2matches)? 'Player 1 Win! Play Again?': 'Player 2 Win! Play Again?';
+      }
+
     }
+    var player = !this.state.turn ? "Player 1" : "Player 2"
     return (
       <div className="Game">
         <div>
           <button onClick={this.reset}>{btnText}</button>
         </div>
-        {this.renderCards(this.state.cards)}
+        <h1>{`${player} turn`}</h1>
+        <div>
+          <div>{`Player 1 Score ${this.state.player1matches}`}</div>
+          <div>{`    Player 2 Score ${this.state.player2matches}`}</div>
+        </div>
+        <div>
+          {this.renderCards(this.state.cards)}
+        </div>
       </div>
     );
   }
