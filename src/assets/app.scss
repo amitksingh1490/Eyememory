@@ -10,10 +10,13 @@
   border: 1px solid black;
   text-align: center;
   background-color: black;
+  transform-style: preserve-3d;
+  transition: transform 1s;
 
   // .Card--flipped
   &--flipped {
     background-color: gray;
+    transform: rotateY( 180deg );
   }
 
   // .Card--matched
