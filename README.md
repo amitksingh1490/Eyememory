@@ -2,6 +2,8 @@
 React JS game- eyememory
 Environment
 NodeJS 6.3.1
+
+
 Step 1
 npm install
 
